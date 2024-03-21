@@ -1,7 +1,7 @@
 name: Notion 테이블 변경값 호출
 
 on:
-  - push
+  - webhook
 
 jobs:
   build:
@@ -10,12 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Notion 테이블 데이터 가져오기
-        uses: notion/notion-api@v2
-        with:
-          token: ${{ secrets.NOTION_TOKEN }}
-          table_id: ${{ secrets.NOTION_TABLE_ID }}
-
-      - name: 변경값 처리
-        # 테이블 데이터를 사용하여 원하는 작업 수행
-        run: echo "Notion 테이블 변경값: ${{ steps.get_notion_data.outputs.data }}"
+      - name: Webhook payload 처리
+        # Webhook payload에서 변경값 추출
+        run: echo "Notion 테이블 변경값: ${{ github.event.body.data }}"
