@@ -21,7 +21,7 @@ jobs:
 
     # 2. Github Pull Request 생성
     - uses: peter-evans/create-pull-request@v3
-      with:
+      #with:
         title: "Notion 테이블 내용 업데이트"
         body: |
           Notion 테이블 내용이 업데이트되었습니다.
