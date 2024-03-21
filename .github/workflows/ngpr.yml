@@ -1,0 +1,36 @@
+name: ngpr
+
+on:
+  # Notion 테이블 변경 감지
+  - push:
+      branches:
+        - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Notion API 사용하여 변경된 내용 가져오기
+    - uses: dawidd6/action-notion@v2
+      with:
+        token: ${{ secrets.NOTION_TOKEN }}
+        database_id: ${{ secrets.NOTION_DATABASE }}
+        # 테이블 필터링 (선택 사항)
+        # filter: ...
+
+    # 2. Github Pull Request 생성
+    - uses: peter-evans/create-pull-request@v3
+      with:
+        title: "Notion 테이블 내용 업데이트"
+        body: |
+          Notion 테이블 내용이 업데이트되었습니다.
+
+          **변경 내용:**
+
+          ${{ steps.get_notion_changes.outputs.changes }}
+
+        branch: "notion-updates"
+        committer: "Notion Bot" <notion@example.com>
+        author: "Notion Bot" <notion@example.com>
+
