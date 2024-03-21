@@ -1,0 +1,25 @@
+name: Notion 테이블 -> Github Pull Request
+
+on:
+  - push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Notion 테이블 데이터 가져오기
+        uses: notion/notion-api@v2
+        with:
+          token: ${{ secrets.NOTION_TOKEN }}
+          table_id: ${{ secrets.NOTION_TABLE_ID }}
+
+      - name: Pull Request 생성
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: "Notion 테이블 업데이트: ${{ github.sha }}"
+          body: "Notion 테이블에 새로운 내용이 추가되었습니다."
+          branch: "notion-updates"
+          target: "main"
