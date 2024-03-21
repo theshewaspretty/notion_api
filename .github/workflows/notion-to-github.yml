@@ -15,7 +15,7 @@ jobs:
 
       # Notion 테이블 데이터 가져오기
       - name: Notion 테이블 데이터 가져오기
-        uses: notion/notion-api@v2
+        uses: ${{ secrets.NOTION_DATABASE }}
         with:
           # Notion API 토큰 (Github Secrets에 저장)
           token: ${{ secrets.NOTION_TOKEN }}
