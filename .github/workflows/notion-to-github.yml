@@ -1,39 +1,21 @@
-name: Notion 테이블 -> Github Pull Request
+name: Notion 테이블 변경값 호출
 
-# Workflow가 실행될 이벤트 지정
 on:
   - push
 
 jobs:
   build:
-    # Workflow가 실행될 환경 설정
     runs-on: ubuntu-latest
 
     steps:
-      # Github 저장소 코드 체크아웃
       - uses: actions/checkout@v2
 
-      # Notion 테이블 데이터 가져오기
       - name: Notion 테이블 데이터 가져오기
-        uses: github/theshewaspretty/notion_api
+        uses: notion/notion-api@v2
         with:
-          # Notion API 토큰 (Github Secrets에 저장)
           token: ${{ secrets.NOTION_TOKEN }}
-          database: ${{ secrets.NOTION_DATABASE }}
-          # Notion 테이블 ID (Github Secrets에 저장)
           table_id: ${{ secrets.NOTION_TABLE_ID }}
 
-      # Pull Request 생성
-      - name: Pull Request 생성
-        # "new name" 문자열이 포함된 커밋에 대해서만 실행
-        if: ${{ contains(github.event.commits[0].message, 'new name') }}
-        uses: peter-evans/create-pull-request@v3
-        with:
-          # Pull Request 제목
-          title: "Notion 테이블 업데이트: ${{ github.sha }}"
-          # Pull Request 내용
-          body: "Notion 테이블에 새로운 이름이 추가되었습니다. ID: ${{ steps.get_notion_data.outputs.id }}"
-          # Pull Request 브랜치 이름
-          branch: "notion-updates"
-          # Pull Request 병합 대상 브랜치 이름
-          target: "main"
+      - name: 변경값 처리
+        # 테이블 데이터를 사용하여 원하는 작업 수행
+        run: echo "Notion 테이블 변경값: ${{ steps.get_notion_data.outputs.data }}"
