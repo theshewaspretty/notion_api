@@ -1,4 +1,4 @@
-name: notion_api
+name: notion-to-github
 
 on:
   - push
