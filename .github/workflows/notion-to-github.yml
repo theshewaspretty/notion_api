@@ -1,4 +1,4 @@
-name: Notion 테이블 -> Github Pull Request
+name: notion_api
 
 on:
   - push
