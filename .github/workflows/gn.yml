@@ -1,4 +1,4 @@
-            - name: Update Notion
+ - name: Update Notion
   # You may pin to the exact commit or the version.
   # uses: ThomasF34/update-notion@cdfd1ec0e06c688814dcbb55c66e4f29a41d0607
   uses: ThomasF34/update-notion@1.2.1
