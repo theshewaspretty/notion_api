@@ -1,10 +1,10 @@
-name: ngpr
+name: Notion to Github PR
 
 on:
   # Notion 테이블 변경 감지
   - push:
       branches:
-        - main
+        - frontend
 
 jobs:
   build:
@@ -21,7 +21,7 @@ jobs:
 
     # 2. Github Pull Request 생성
     - uses: peter-evans/create-pull-request@v3
-      #with:
+      with:
         title: "Notion 테이블 내용 업데이트"
         body: |
           Notion 테이블 내용이 업데이트되었습니다.
@@ -31,6 +31,5 @@ jobs:
           ${{ steps.get_notion_changes.outputs.changes }}
 
         branch: "notion-updates"
-        committer: "Notion Bot" <notion@example.com>
-        author: "Notion Bot" <notion@example.com>
-
+        committer: "Notion Bot" 
+        author: "Notion Bot" 
