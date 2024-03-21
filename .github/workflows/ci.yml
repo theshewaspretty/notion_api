@@ -1,0 +1,14 @@
+            - name: notion-pr-linking
+  # You may pin to the exact commit or the version.
+  # uses: kolesnikov-pasha/github-pr-linker@5c1a96e73cb7353c53dbdfd136a2d39fce4d6fc9
+  uses: kolesnikov-pasha/github-pr-linker@v1.0.3
+  with:
+    # ID of a database you want to use as a source of tasks.
+    database-id: ${{ secrets.NOTION_DATABASE }}
+    # API token of your Notion integration.
+    notion-token: ${{ secrets.NOTION_TOKEN }}
+    # Page parameter responsible for representing tasks IDs.
+    task-id-param: # optional, default is ID
+    # Common prefix of the task ID parameter values.
+    task-id-prefix: # optional, default is TASKS
+          
