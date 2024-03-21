@@ -1,4 +1,4 @@
-            - name: notion-pr-linking
+ - name: notion-pr-linking
   # You may pin to the exact commit or the version.
   # uses: kolesnikov-pasha/github-pr-linker@5c1a96e73cb7353c53dbdfd136a2d39fce4d6fc9
   uses: kolesnikov-pasha/github-pr-linker@v1.0.3
