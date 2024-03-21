@@ -1,0 +1,44 @@
+            - name: Update Notion
+  # You may pin to the exact commit or the version.
+  # uses: ThomasF34/update-notion@cdfd1ec0e06c688814dcbb55c66e4f29a41d0607
+  uses: ThomasF34/update-notion@1.2.1
+  with:
+    # Name of the property name that will receive the new status
+    status-property-name: # optional, default is Status
+    # Name of the property name that will receive the link of the PR
+    url-property-name: # optional, default is Github Url
+    # Prefix string required just before the Notion link
+    required-prefix: # optional, default is 
+    # Suffix string required just after the Notion link
+    required-suffix: # optional, default is 
+    # Value of the status to put on the Notion Page when the PR state is `draft`
+    draft: # optional
+    # Value of the status to put on the Notion Page when the PR state is `merged`
+    merged: # optional
+    # Value of the status to put on the Notion Page when the PR action is `assigned`
+    assigned: # optional
+    # Value of the status to put on the Notion Page when the PR action is `unassigned`
+    unassigned: # optional
+    # Value of the status to put on the Notion Page when the PR action is `labeled`
+    labeled: # optional
+    # Value of the status to put on the Notion Page when the PR action is `unlabeled`
+    unlabeled: # optional
+    # Value of the status to put on the Notion Page when the PR action is `opened`
+    opened: # optional
+    # Value of the status to put on the Notion Page when the PR action is `edited`
+    edited: # optional
+    # Value of the status to put on the Notion Page when the PR action is `closed`
+    closed: # optional
+    # Value of the status to put on the Notion Page when the PR action is `reopened`
+    reopened: # optional
+    # Value of the status to put on the Notion Page when the PR action is `synchronize`
+    synchronize: # optional
+    # Value of the status to put on the Notion Page when the PR action is `ready_for_review`
+    ready_for_review: # optional
+    # Value of the status to put on the Notion Page when the PR action is `locked`
+    locked: # optional
+    # Value of the status to put on the Notion Page when the PR action is `unlocked`
+    unlocked: # optional
+    # Value of the status to put on the Notion Page when the PR action is `review_requested`
+    review_requested: # optional
+          
