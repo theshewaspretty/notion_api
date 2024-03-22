@@ -4,7 +4,7 @@ on:
   # Notion 테이블에서 수정 이벤트 발생 시
   push:
     branches:
-      - frontend
+      - main
            
 
 jobs:
