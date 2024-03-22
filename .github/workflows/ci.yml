@@ -1,16 +1,16 @@
-name: ci
-
-on:
-  pull_request:
-    types: [opened, edited, closed, reopened, synchronize, converted_to_draft, ready_for_review, review_requested]
+name: "Create PR"
+on: push
 
 jobs:
-  build:
+  create-pr-on-push:
+    if: ${{ (contains(github.event.head_commit.message, 'BUG') || contains(github.event.head_commit.message, 'IMP'))  && github.event.pull_request.merged == false }}
     runs-on: ubuntu-latest
-
     steps:
-    - uses: kolesnikov-pasha/github-pr-linker@v1.0.1
+    - uses: actions/checkout@1.0.0
+    - name: Create pull request
+      uses: thomaseizinger/create-pull-request@master
       with:
-        github-token: ${{ secrets.GH_TOKEN }}
-        database-id: 961a46b0a66d403e9a59e617db721732
-        notion-token: ${{ secrets.NOTION_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        head: ${{ github.ref }}
+        base: main
+        title: ${{ github.event.head_commit.message }}
