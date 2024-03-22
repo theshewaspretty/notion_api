@@ -11,5 +11,5 @@ jobs:
     steps:
     - uses: kolesnikov-pasha/github-pr-linker@v1.0.1
       with:
-        database-id: ${{ secrets.NOTION_DATABASE }}
+        database-id: 961a46b0a66d403e9a59e617db721732
         notion-token: ${{ secrets.NOTION_TOKEN }}
