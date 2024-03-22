@@ -1,41 +1,57 @@
-name: Notion Database to Github Pull Request
+name: Notion DB to Github PR
 
 on:
-  # Notion 데이터베이스 수정 이벤트를 감지
+  # Notion 테이블에서 수정 이벤트 발생 시
   push:
     branches:
-      - frontend
-      - backend
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Notion API 라이브러리 설치
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '12'
-      - run: npm install notion-api
+      - uses: actions/checkout@v2
 
-      # 2. Notion 데이터베이스 정보 가져오기
+      # Notion API 토큰 설정
+      - name: Set Notion API Token
+        env:
+          NOTION_API_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        run: echo "::set-env name=NOTION_API_TOKEN::${{ secrets.NOTION_TOKEN }}"
+
+      # Github PAT 설정
+      - name: Set Github PAT
+        env:
+          GITHUB_PAT: ${{ secrets.GH_TOKEN }}
+        run: echo "::set-env name=GITHUB_PAT::${{ secrets.GH_TOKEN }}"
+
+      # Notion 데이터베이스 정보 가져오기
       - name: Get Notion Database Info
-        id: get_notion_info
+        id: notion_db_info
         run: |
-          node ./get-notion-info.js \
-            --token ${{ secrets.NOTION_TOKEN }} \
-            --database-id ${{ secrets.NOTION_DATABASE }} \
-            --since ${{ github.event.before }} \
-            --until ${{ github.event.after }}
+          curl -X GET \
+            -H "Authorization: Bearer ${{ env.NOTION_TOKEN }}" \
+            -H "Notion-Version: 2022-06-28" \
+            "https://api.notion.so/v1/databases/${{ secrets.NOTION_DATABASE }}"
 
-      # 3. Notion 데이터베이스 변경 사항을 Github Pull Request로 변환
-      - name: Create Github Pull Request
+      # Notion 테이블에서 변경된 페이지 목록 추출
+      - name: Get Changed Pages
+        id: changed_pages
+        run: |
+          jq -r '.results[] | select(.has_changes)' ${{ steps.notion_db_info.outputs.result }}
+
+      # 각 변경된 페이지에 대한 Github Pull Request 생성
+      - name: Create Pull Request for Each Changed Page
         uses: peter-evans/create-pull-request@v3
         with:
-          token: ${{ secrets.GH_TOKEN }}
-          title: "Notion Database Updates - ${{ github.event.head_commit.message }}"
+          # Github 저장소 정보
+          repo: ${{ github.repository }}
+          branch: ${{ github.ref }}
+          # Pull Request 제목 및 본문 구성
+          title: "Notion DB 변경: {{ .page.title }}"
           body: |
-            ${{ steps.get_notion_info.outputs.pull_request_body }}
+            - 변경된 페이지: {{ .page.url }}
+            - 변경 내용: {{ .changes }}
+          # Github PAT를 사용하여 Pull Request 생성
+          token: ${{ env.GH_TOKEN }}
 
-          branch: ${{ github.event.head_commit.sha }}
-          base: main
