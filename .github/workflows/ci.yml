@@ -4,7 +4,8 @@ on:
   # Notion 데이터베이스 수정 이벤트를 감지
   push:
     branches:
-      - main
+      - frontend
+      - backend
 
 jobs:
   build:
