@@ -1,0 +1,15 @@
+name: ci
+
+on:
+  pull_request:
+    types: [opened, edited, closed, reopened, synchronize, converted_to_draft, ready_for_review, review_requested]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: kolesnikov-pasha/github-pr-linker@v1.0.1
+      with:
+        database-id: ${{ secrets.NOTION_DATABASE }}
+        notion-token: ${{ secrets.NOTION_TOKEN }}
