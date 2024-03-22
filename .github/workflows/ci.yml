@@ -46,7 +46,7 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           # Github 저장소 정보
-          repo: ${{ secrets.GITHUB_REPOSITORY }}
+          repo: ${{ secrets.GH_REPOSITORY }}
           branch: ${{ github.ref }}
           # Pull Request 제목 및 본문 구성
           title: "Notion DB 변경: {{ .page.title }}"
