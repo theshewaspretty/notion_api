@@ -15,7 +15,7 @@ jobs:
       # 1. Notion API 라이브러리 설치
       - uses: actions/setup-node@v2
         with:
-          node-version: 'latest'
+          node-version: '12'
       - run: npm install notion-api
 
       # 2. Notion 데이터베이스 정보 가져오기
