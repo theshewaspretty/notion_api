@@ -25,6 +25,7 @@ jobs:
       - name: Set Github PAT
         env:
           GITHUB_PAT: ${{ secrets.GH_PAT }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
         run: echo "::set-env name=GITHUB_PAT::${{ secrets.GH_PAT }}"
 
       # Notion 데이터베이스 정보 가져오기
