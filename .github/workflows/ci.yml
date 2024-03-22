@@ -17,8 +17,8 @@ jobs:
       # Notion API 토큰 설정
       - name: Set Notion API Token
         env:
-          NOTION_API_TOKEN: ${{ secrets.NOTION_API_TOKEN }}
-        run: echo "::set-env name=NOTION_API_TOKEN::${{ secrets.NOTION_API_TOKEN }}"
+          NOTION_API_TOKEN: ${{ secrets.NOTION_API_TOKEN_2 }}
+        run: echo "::set-env name=NOTION_API_TOKEN::${{ secrets.NOTION_API_TOKEN_2 }}"
 
       # Github PAT 설정
       - name: Set Github PAT
